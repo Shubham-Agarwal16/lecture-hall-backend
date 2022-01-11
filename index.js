@@ -301,6 +301,26 @@ app.put("/lecturehall/profile/updateemail", function (req, res) {
     }
   });
 });
+app.put('/lecturehall/profile/updatemobile', function (req, res) {
+  var newphone= req.body.newphone;
+  var oldphone = req.body.oldphone;
+  const sql =
+  "update user " +
+  "set mobile_no = '" +
+  newphone + "' where mobie_no = '" +
+  oldphone + "'";
+
+db.query(sql, (err, result) => {
+  console.log(result.message);
+  if (err) throw err;
+  if(result.affectedRows!=0)
+  res.status(200).send("ok");
+  else{
+    res.status(404).send("Not found");
+  }
+
+});
+});
 
 app.put("/lecturehall/profile", function (req, res) {
   if (!req.body.password) return res.status(400).send({ msg: "Invalid Input" });
